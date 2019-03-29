@@ -12,7 +12,7 @@ public class PostZuulFilter extends ZuulFilter{
 
 	@Override
 	public Object run() {
-		// TODO Auto-generated method stub
+
 		System.out.println("PostZuulFilter");
 		return null;
 	}

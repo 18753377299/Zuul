@@ -12,7 +12,21 @@ server:
 spring: 
   application: 
     name: eureka-dept-zuul
-#  datasource:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/platform_devdb?useUnicode=true&amp;characterEncoding=utf-8
+    username: root
+    password: admin
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+    validation-query: SELECT 1
+    test-on-borrow: false
+    test-while-idle: true
+    time-between-eviction-runs-millis: 18800
+    jdbc-interceptors: ConnectionState;SlowQueryReport(threshold=0)
+    
 #    type: com.alibaba.druid.pool.DruidDataSource
 #    driver-class-name: org.gjt.mm.mysql.Driver
 #    url: jdbc:mysql://localhost:3306/test
@@ -28,8 +42,8 @@ eureka:
   instance:
       hostname: localhost
       prefer-ip-address: true
-      instance-id: gateway-9527.com
-  client:
+      instance-id: 11.205.243.197
+  client: 
     service-url: 
       defaultZone: http://localhost:8762/eureka/
       
@@ -40,6 +54,8 @@ info:
   build.version: $project.version$
 
 zuul: 
+  host:
+    max-total-connections: 10000
 #  ignored-services: EUREKA-CLIENT
 #  我们可以指定一个全局的前缀
   prefix: /com
@@ -55,9 +71,16 @@ zuul:
 #  就是把 /mydept代替EUREKA-CLIENT 使用，相当于起了一个别名, 直接访问 http://localhost:9003/com/mydept/dept/get/3
     mydept.serviceId: EUREKA-CLIENT
     mydept.path: /mydept/**
+    myfeign.serviceId: EUREKA-DEPT-FEIGN
+    myfeign.path: /myfeign/**
  
 #启用Feign对Hystrix的支持
 #feign: 
 #  hystrix: 
 #   enabled: true
+ribbon:
+  ReadTimeout: 10000
+  SocketTimeout: 10000
+  
+  
    

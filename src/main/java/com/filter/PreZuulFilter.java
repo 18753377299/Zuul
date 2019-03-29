@@ -23,7 +23,7 @@ public class PreZuulFilter extends  ZuulFilter{
 
 	@Override
 	public Object run() {
-		// TODO Auto-generated method stub
+		
 		System.out.println("================PreZuulFilter");
 		RequestContext requestContext =RequestContext.getCurrentContext();
 		HttpServletRequest request = requestContext.getRequest();

@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.service.RefreshRouteService;
+
 
 @RestController
 public class DeptController {
 	
 	@Autowired
 	private DiscoveryClient client;
+	
+	@Autowired
+	private RefreshRouteService refreshRouteService;
 		
 	
 	@RequestMapping(value="/dept/get/{id}",method= {RequestMethod.POST,RequestMethod.GET})
@@ -40,6 +45,13 @@ public class DeptController {
 		}
 				
 		return this.client;
+	}
+	
+	@RequestMapping(value="/refreshRoute",method= {RequestMethod.POST,RequestMethod.GET})
+	public String refreshRoute() {
+		
+		refreshRouteService.refreshRoute();
+		return "refreshRoute";
 	}
 	
 }
